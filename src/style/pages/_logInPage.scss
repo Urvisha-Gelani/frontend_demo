@@ -1,0 +1,162 @@
+.login-page {
+  @include flexCenter;
+  min-height: 100vh;
+  background: url("../images/background/bg.jpg") no-repeat;
+  background-size: cover;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  color: $text-color;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+
+  .form-container {
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+    padding: 2rem;
+  }
+}
+
+.auth-form {
+  @include glass-effect;
+  border-radius: 20px;
+  padding: 2.5rem;
+  position: relative;
+  color: $text-color;
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  .floating {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .form-control {
+    background-color: transparent;
+    color: $text-color;
+    border: $glass-border;
+    padding-left: 2.5rem;
+    height: calc(3.5rem + 2px);
+
+    &:focus {
+      background-color: transparent;
+      color: $text-color;
+      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.4);
+    }
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .auth-btn {
+    background: $primary-gradient;
+    border: none;
+    padding: 0.75rem;
+    font-weight: 600;
+    border-radius: 40px;
+    transition: all 0.3s;
+    margin-top: 1rem;
+
+    &:hover {
+      background: linear-gradient(45deg, #ff8e8e, #ff6b6b);
+      transform: translateY(-2px);
+    }
+  }
+
+  .auth-link {
+    background: none;
+    border: none;
+    color: $text-color;
+    font-weight: 600;
+    text-decoration: underline;
+    padding: 0;
+    cursor: pointer;
+
+    &:hover {
+      color: #ddd;
+    }
+  }
+
+  .back-button {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: none;
+    border: none;
+    color: $text-color;
+    font-size: 1.25rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+}
+
+// Custom form check
+.form-check-input {
+  background-color: transparent;
+  border: $glass-border;
+
+  &:checked {
+    background-color: $primary-gradient;
+    border-color: transparent;
+  }
+}
+
+// Floating label adjustments
+.form-floating > label {
+  color: rgba(255, 255, 255, 0.7);
+  padding-left: 2.5rem;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label,
+.form-floating > .form-select ~ label {
+  color: rgba(255, 255, 255, 0.7);
+  transform: scale(0.85) translateY(-0.5rem) translateX(0.15rem);
+  padding-left: 2.5rem;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
