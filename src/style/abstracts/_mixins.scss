@@ -1,0 +1,40 @@
+@mixin flex($flex, $JustifyContent, $alignItems) {
+  display: $flex;
+  justify-content: $JustifyContent;
+  align-items: $alignItems;
+}
+
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexDirection($direction) {
+  flex-direction: $direction;
+}
+
+@mixin d-flex() {
+  display: flex;
+  @content;
+}
+
+// same width and height
+@mixin size($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+@mixin ellipse() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  @content;
+}
+
+@mixin glass-effect {
+  background: $glass-bg;
+  backdrop-filter: blur(10px);
+  border: $glass-border;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
