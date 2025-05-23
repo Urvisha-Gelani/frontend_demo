@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Container } from "react-bootstrap";
-import LoginForm from "./LoginForm";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "./logInForm";
+import RegisterForm from "./registerForm";
 
-const LoginPage = () => {
+const HomePage = () => {
   const [showRegister, setShowRegister] = useState(false);
 
   return (
@@ -19,4 +19,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage;
+export default HomePage;

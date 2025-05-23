@@ -1,0 +1,23 @@
+
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: $light-color;
+
+  .main-content {
+    display: flex;
+    flex: 1;
+    margin-top: $header-height;
+  }
+
+  .content-area {
+    flex: 1;
+    padding: 20px;
+    background-color: white;
+    margin-left: $sidebar-width;
+    box-shadow: $shadow;
+    min-height: calc(100vh - #{$header-height});
+  }
+}

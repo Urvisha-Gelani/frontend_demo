@@ -1,0 +1,32 @@
+// src/components/sidebar/Sidebar.scss
+
+.app-sidebar {
+  width: $sidebar-width;
+  background-color: $dark-color;
+  position: fixed;
+  height: calc(100vh - #{$header-height});
+  top: $header-height;
+  left: 0;
+  padding: 20px 0;
+  box-shadow: $shadow;
+  z-index: 999;
+
+  .sidebar-link {
+    color: rgba($text-light, 0.8) !important;
+    padding: 12px 20px;
+    margin: 5px 0;
+    border-radius: 0;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: rgba($text-light, 0.1);
+      color: $text-light !important;
+    }
+
+    &.active {
+      background-color: $primary-color;
+      color: $text-light !important;
+      font-weight: bold;
+    }
+  }
+}

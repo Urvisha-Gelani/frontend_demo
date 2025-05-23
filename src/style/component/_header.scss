@@ -1,0 +1,20 @@
+// src/components/header/Header.scss
+
+
+.app-header {
+  height: $header-height;
+  box-shadow: $shadow;
+  z-index: 1000;
+
+  .navbar-brand {
+    font-weight: bold;
+    color: $text-light !important;
+  }
+
+  .nav-link {
+    color: rgba($text-light, 0.8) !important;
+    &:hover {
+      color: $text-light !important;
+    }
+  }
+}

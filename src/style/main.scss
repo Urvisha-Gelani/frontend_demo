@@ -2,4 +2,6 @@
 
 @import "abstracts/base", "abstracts/variables", "abstracts/mixins";
 
-@import "pages/logInPage";
+@import "component/layout", "component/header", "component/sidebar";
+
+@import "pages/logInPage", "pages/jobDetails";
