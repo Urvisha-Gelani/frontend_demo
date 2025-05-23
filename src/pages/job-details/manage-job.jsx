@@ -5,7 +5,7 @@ import { Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
 import { useJobStore } from "../../zustand-store/job-store/job-store";
 
 const ManageJob = ({ showModal, closeModel, jobData }) => {
-  const { jobManage, isLoading, fetchJobs } = useJobStore();
+  const { jobManage, isLoading } = useJobStore();
   const formData = {
     client_name: "",
     job_title: "",
