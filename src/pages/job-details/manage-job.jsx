@@ -18,7 +18,6 @@ const ManageJob = ({ showModal, closeModel, jobData }) => {
     await jobManage(values);
     closeModel();
     console.log("Job details", values);
-    fetchJobs();
   };
 
   const formik = useFormik({

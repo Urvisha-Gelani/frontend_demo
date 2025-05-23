@@ -1,4 +1,3 @@
-// src/store/useUserStore.ts
 import { create } from "zustand";
 import axiosInstance from "../../helpers/axios/axios.config";
 import { toast } from "react-toastify";
@@ -11,31 +10,43 @@ export const useJobStore = create((set, get) => ({
 
   jobManage: async (jobData) => {
     const { id } = jobData;
-    const { isLoading } = get();
-    if (isLoading) {
-      return;
-    }
+    const { isLoading, jobDetail } = get();
+    if (isLoading) return;
+
     try {
       set({ isLoading: true, error: null });
       const method = id ? "patch" : "post";
       const apiUrl = id ? `/jobs/${id}` : "/create/jobs";
       const response = await axiosInstance[method](apiUrl, jobData);
+      const { data, status } = response;
 
-      console.log(response, "****************");
-      const { status } = response;
       if (status === 201 || status === 200) {
-        set({ isLoading: true, error: null });
+        let updatedJobs;
+        if (id) {
+          updatedJobs = jobDetail.map((job) => (job.id === id ? data : job));
+          toast.success("Job updated successfully");
+        } else {
+          updatedJobs = [data, ...jobDetail];
+          toast.success("Job created successfully");
+        }
+        set({
+          jobDetail: updatedJobs,
+          totalJobs: updatedJobs.length,
+          isLoading: false,
+        });
       }
       return response;
     } catch (error) {
       const { response } = error;
-      const { status, data } = response;
+      const { status, data } = response || {};
       if (status === 422) {
         set({ error: data.message, isLoading: false });
+        toast.error(data.message);
       } else {
         set({ error: "Something went wrong", isLoading: false });
+        toast.error("Something went wrong. Please try again.");
       }
-      console.log("Error creating user:", error);
+      console.error("Error managing job:", error);
     } finally {
       set({ isLoading: false });
     }
@@ -43,23 +54,21 @@ export const useJobStore = create((set, get) => ({
 
   fetchJobs: async ({ page, limit }) => {
     const { isLoading } = get();
-    if (isLoading) {
-      return;
-    }
+    if (isLoading) return;
     try {
       set({ isLoading: true, error: null });
       const response = await axiosInstance.get(
         `/jobs?page=${page}&limit=${limit}`
       );
-      console.log(response, "****************");
       const totalJobs = response.headers["total-users"];
       const {
         status,
         data: { jobs },
       } = response;
+
       if (status === 201 || status === 200) {
         set({
-          isLoading: true,
+          isLoading: false,
           error: null,
           jobDetail: jobs,
           totalJobs: totalJobs,
@@ -68,46 +77,47 @@ export const useJobStore = create((set, get) => ({
       }
     } catch (error) {
       const { response } = error;
-      const { status, data } = response;
+      const { status, data } = response || {};
       if (status === 422) {
         set({ error: data.message, isLoading: false });
         toast.error(data.message);
       } else {
-        toast.error("Something went wrong. please try again.");
+        toast.error("Something went wrong. Please try again.");
         set({ isLoading: false });
       }
-      console.log("Error creating user:", error);
-    } finally {
-      set({ isLoading: false });
+      console.error("Error fetching jobs:", error);
     }
   },
+
   deleteJob: async (id) => {
-    const { isLoading } = get();
-    if (isLoading) {
-      return;
-    }
-    set({ isLoading: true, error: null });
-    const { fetchJobs } = get();
+    const { isLoading, jobDetail } = get();
+    if (isLoading) return;
+
     try {
+      set({ isLoading: true, error: null });
       const response = await axiosInstance.delete(`/jobs/${id}`);
-      console.log(response, "****************");
       const { status } = response;
+
       if (status === 201 || status === 200) {
-        set({ isLoading: true, error: null });
+        const updatedJobs = jobDetail.filter((job) => job.id !== id);
+        set({
+          jobDetail: updatedJobs,
+          totalJobs: updatedJobs.length,
+          isLoading: false,
+        });
         toast.success("Job deleted successfully");
       }
     } catch (error) {
       const { response } = error;
-      const { status, data } = response;
+      const { status, data } = response || {};
       if (status === 422) {
         set({ error: data.message, isLoading: false });
         toast.error(data.message);
-        fetchJobs({ page: 1, limit: 10 });
       } else {
-        toast.error("Something went wrong. please try again.");
+        toast.error("Something went wrong. Please try again.");
         set({ isLoading: false });
       }
-      console.log("Error creating user:", error);
+      console.error("Error deleting job:", error);
     } finally {
       set({ isLoading: false });
     }
